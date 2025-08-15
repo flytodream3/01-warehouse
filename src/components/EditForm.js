@@ -1,16 +1,12 @@
 import Button from "./Button";
 import {useState} from "react";
 
-export default function EditForm({item, onEditItem}) {
   const [code, setCode] = useState(item.code);
   const [name, setName] = useState(item.name);
   const [quantity, setQuantity] = useState(item.quantity);
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    onEditItem(code, name, quantity)
-
   }
   return (
     <form className="edit-form" onSubmit={handleSubmit}>

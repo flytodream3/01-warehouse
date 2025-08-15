@@ -1,9 +1,7 @@
 const goods = [
   {
     name: "Canon EP26",
-    quantity: 1,
     code: "000004",
-    inStock: true,
   },
   {
     name: "Toner DC 1205,1255",
@@ -13,9 +11,7 @@ const goods = [
   },
   {
     name: "Canon IR 1600",
-    quantity: 3,
     code: "000007",
-    inStock: true,
   },
   {
     name: "Dell 19 (used)",

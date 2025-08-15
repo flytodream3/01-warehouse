@@ -25,7 +25,6 @@ export function AddForm({handleAddSubmit}) {
       <input
         type="text"
         value={code}
-        onChange={(e) => (e.target.value !== "" ? setCode(e.target.value) : null)}
       />
       <label>Name:</label>
       <input

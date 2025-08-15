@@ -23,11 +23,9 @@ export default function Table({items, onRemoveItem, onSelectItem, selectedItem})
   }
 
   if (sortBy === "quantity_asc") {
-    sortedItems = items.slice().sort((a, b) => a.quantity - b.quantity);
   }
 
   if (sortBy === "quantity_desc") {
-    sortedItems = items.slice().sort((a, b) => b.quantity - a.quantity);
   }
 
 
