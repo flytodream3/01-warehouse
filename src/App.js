@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import goods from "./data";
+import Table from "./components/Table";
+import Header from "./components/Header";
+import {useState} from "react";
+import EditForm from "./components/EditForm";
 
 function App() {
+  const [data, setData] = useState(goods);
+  const [showEdit, setShowEdit] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  function handleSelectedItem(item) {
+    setSelectedItem((cur) =>
+      (cur?.code === item.code ? null : item));
+    setShowEdit(true)
+  }
+
+  function handleSetData(item) {
+    setData((data) => [...data, item]);
+  }
+
+  function handleRemoveItem(id) {
+    setData((data) => data.filter(item => item.code !== id));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main">
+      <Header setData={setData} handleSetData={handleSetData} />
+      <Table
+        items={data}
+        onRemoveItem={handleRemoveItem}
+        onSelectItem={handleSelectedItem}
+        selectedItem={selectedItem}
+      />
+      {selectedItem && <EditForm item={selectedItem}/>}
     </div>
   );
 }
