@@ -23,11 +23,11 @@ export default function Table({items, onRemoveItem, onSelectItem, selectedItem})
   }
 
   if (sortBy === "quantity_asc") {
-    sortedItems = items.slice().sort((a, b) => a.code - b.code);
+    sortedItems = items.slice().sort((a, b) => a.quantity - b.quantity);
   }
 
   if (sortBy === "quantity_desc") {
-    sortedItems = items.slice().sort((a, b) => b.code - a.code);
+    sortedItems = items.slice().sort((a, b) => b.quantity - a.quantity);
   }
 
 
