@@ -6,7 +6,7 @@ import EditForm from "./components/EditForm";
 import SearchForm from "./components/SearchForm";
 
 function App() {
-  const [data, setData] = useState(goods);
+  const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
 
   function handleSelectedItem(item) {
@@ -52,13 +52,13 @@ function App() {
   return (
     <div className="main">
       <Header handleSetData={handleSetData} />
-      {data && <SearchForm onSearch={handleSearchItem} />}
+      {data.length > 0 ? <><SearchForm onSearch={handleSearchItem} />
       <Table
         items={data}
         onRemoveItem={handleRemoveItem}
         onSelectItem={handleSelectedItem}
         selectedItem={selectedItem}
-      />
+      /></> : <p>No items found</p>}
       {selectedItem && <EditForm item={selectedItem} onEdit={handleEditItem} />}
     </div>
   );
