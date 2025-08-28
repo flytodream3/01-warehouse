@@ -1,23 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import goods from "./data";
+import Table from "./components/Table";
+import Header from "./components/Header";
+import {useState} from "react";
+import EditForm from "./components/EditForm";
+import SearchForm from "./components/SearchForm";
 
 function App() {
+  const [data, setData] = useState(goods);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  function handleSelectedItem(item) {
+    setSelectedItem((cur) =>
+      (cur?.code === item.code ? null : item));
+  }
+
+  function handleSetData(item) {
+    setData((data) => [...data, item]);
+  }
+
+  function handleRemoveItem(id) {
+    setData((data) => data.filter(item => item.code !== id));
+  }
+
+  function handleSearchItem(keyword) {
+    setData(keyword !== ""
+      ? (data) =>
+          (data.slice().filter(item =>
+            item.code.includes(keyword) || item.name.includes(keyword))
+          )
+      : data
+    );
+  }
+
+  function handleEditItem(code, name, quantity) {
+    setData((data) =>
+      data.map((item) =>
+        item.code === selectedItem.code
+          ? {
+              ...item,
+              code: code,
+              name: name,
+              quantity: quantity,
+              inStock: quantity > 0 && true,
+            }
+          : item
+      )
+    )
+    setSelectedItem(null);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main">
+      <Header handleSetData={handleSetData} />
+      {data && <SearchForm onSearch={handleSearchItem} />}
+      <Table
+        items={data}
+        onRemoveItem={handleRemoveItem}
+        onSelectItem={handleSelectedItem}
+        selectedItem={selectedItem}
+      />
+      {selectedItem && <EditForm item={selectedItem} onEdit={handleEditItem} />}
     </div>
   );
 }
