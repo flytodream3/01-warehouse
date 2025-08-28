@@ -1,6 +1,6 @@
 import Table from "./components/Table";
 import Header from "./components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditForm from "./components/EditForm";
 import SearchForm from "./components/SearchForm";
 
@@ -50,6 +50,15 @@ function App() {
     );
     setSelectedItem(null);
   }
+
+  useEffect(() => {
+    async function getData() {
+      const res = await fetch("http://127.0.0.1:8000/products/");
+      const data = await res.json();
+      setData(data.products);
+    }
+    getData();
+  }, []);
 
   return (
     <div className="main">
